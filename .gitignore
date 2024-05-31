@@ -1,0 +1,8 @@
+# build directories
+/target/
+
+# IDE directories
+/.vscode/
+/.idea/
+/.fleet/
+
