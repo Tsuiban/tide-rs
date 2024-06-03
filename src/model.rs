@@ -204,7 +204,7 @@ impl Model {
             None
         };
         let end_time = if cli.endtime.is_some() {
-            let e = NaiveDateTime::new(now, cli.starttime.unwrap());
+            let e = NaiveDateTime::new(now, cli.endtime.unwrap());
             if start_time.is_some() && e < start_time.unwrap() {
                 Some(e + TimeDelta::days(1))
             } else {
