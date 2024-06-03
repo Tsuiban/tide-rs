@@ -1,4 +1,90 @@
-import { } from "std-widgets.slint";
+import { Button, HorizontalBox, LineEdit, TextEdit, VerticalBox } from "std-widgets.slint";
 
 export component AppWindow inherits Window {
+    title: "Tide and Current Calculator by Kevin-Neil Klop";
+    in-out property start-time <=> st.text;
+    in-out property end-time <=> et.text;
+    in-out property start-value <=> sv.text;
+    in-out property end-value <=> ev.text;
+    in-out property interval <=> i.text;
+    in-out property target-value <=> tv.text;
+    in-out property target-value-time <=> tvt.text;
+    in property<string> value-table <=> g.text;
+
+    callback start-time-edited;
+    callback end-time-edited;
+    callback calculate;
+
+    VerticalBox {
+        HorizontalBox {
+            Text { text: "Start time: "; vertical-stretch: 0; }
+            st := LineEdit {
+                vertical-stretch: 0;
+                max_height: 15px;
+                max-width: 100px;
+                preferred-height: 10px;
+                edited => { root.start-time-edited(); }
+                accepted => { root.calculate(); }
+            }
+            Text { text: "End time: "; vertical-stretch: 0; }
+            et := LineEdit {
+                vertical-stretch: 0;
+                max_height: 15px;
+                max-width: 100px;
+                preferred-height: 10px;
+                edited => { root.end-time-edited(); }
+                accepted => { root.calculate(); }
+            }
+        }
+        HorizontalBox {
+            Text { text: "Start value: "; vertical-stretch: 0; }
+            sv := LineEdit {
+                vertical-stretch: 0;
+                max-height: 15px;
+                max-width: 100px;
+                preferred-height: 10px;
+                input-type: decimal;
+                accepted => { root.calculate(); }
+            }
+            Text { text: "End value: "; vertical-stretch: 0; }
+            ev := LineEdit {
+                vertical-stretch: 0;
+                max-height: 15px;
+                max-width: 100px;
+                preferred-height: 10px;
+                input-type: decimal;
+                accepted => { root.calculate(); }
+            }
+        }
+        HorizontalBox {
+            Text { text: "Interval (minutes): "; vertical-stretch: 0; }
+            i := LineEdit {
+                vertical-stretch: 0;
+                max-height: 15px;
+                max-width: 100px;
+                preferred-height: 10px;
+                input-type: decimal;
+                accepted => { root.calculate(); }
+            }
+            Text { text: "Target value: "; vertical-stretch: 0; }
+            tv := LineEdit {
+                vertical-stretch: 0;
+                max-height: 15px;
+                max-width: 100px;
+                preferred-height: 10px;
+                input-type: decimal;
+                accepted => { root.calculate(); }
+            }
+        }
+        HorizontalBox {
+            Text { text: "Target value achieved time: "; vertical-stretch: 0; }
+            tvt := Text { vertical-stretch: 0; min-width: 50px; }
+            g := TextEdit {
+                preferred-height: 400px;
+                preferred-width: 200px;
+                max-width: 200px;
+                min-width: 50px;
+            }
+        }
+    }
 }
