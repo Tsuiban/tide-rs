@@ -36,6 +36,15 @@ fn main() -> Result<(), slint::PlatformError> {
     if !cli.nogui {
         let ui = AppWindow::new()?;
         model.to_ui(&ui);
+        {
+            let (target_time, table_data) = model.calculate();
+            if target_time.is_some() {
+                let tstr = target_time.unwrap().format("%H:%M:%S").to_string();
+                ui.set_target_value_time(SharedString::from(tstr));
+            };
+
+            ui.set_value_table(SharedString::from(table_data));
+        }
 
         ui.on_start_time_edited({
             let ui_weak = ui.as_weak();
